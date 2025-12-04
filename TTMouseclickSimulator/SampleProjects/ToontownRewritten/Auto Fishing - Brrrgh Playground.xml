@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<SimulatorProject xmlns="https://github.com/TTExtensions/MouseClickSimulator">
+  <Title>Automatic Fishing in The Brrrgh Playground</Title>
+  <Description>
+The Toon will automatically fish in The Brrrgh Playground.
+Before you click on Start, make sure that
+• you are in a quiet district,
+• your fish bucket is empty,
+• you have enough JellyBeans for 20 casts,
+• your toon is standing on the closest right fishing board (viewed from Fisherman Frizzy).
+  </Description>
+
+  <MainAction>
+
+    <Compound type="Sequential">
+
+      <!-- Use the automatic fishing action 19 times,
+           plus the straight fishing action.
+      -->
+      <Loop count="19">
+        <AutomaticFishing scan1="50, 244" scan2="1500, 960"
+                          bubbleColorRgb="25, 144, 148" toleranceRgb="13, 14, 14" />
+      </Loop>
+      <!--
+      The last cast must always be straight; otherwise the toon will rotate in
+      the cast direction and the Simulator would be unable to correctly move the Toon
+      to the fisherman. 
+      -->
+      <StraightFishing />
+
+      <QuitFishing />
+
+      <Pause duration="1200" />
+
+      <!-- Now go to the fisherman and sell the fish. -->
+      <Compound type="Sequential" minimumPause="50" maximumPause="300" loop="false">
+        <PressKey key="Left" duration="1400" />
+		<PressKey key="Up" duration="2500" />
+        <Pause duration="1000" />
+
+        <SellFish />
+
+        <Pause duration="1000" />
+        <PressKey key="Down" duration="4300" />
+        <Pause duration="3000" />
+      </Compound>
+
+    </Compound>
+
+  </MainAction>
+
+</SimulatorProject>
